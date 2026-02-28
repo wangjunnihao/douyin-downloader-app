@@ -25,6 +25,11 @@ jobs:
     - name: Set up Android SDK
       uses: android-actions/setup-android@v2
     
+    - name: Accept Android SDK licenses
+      run: |
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+        yes | $ANDROID_HOME/platform-tools/bin/adb kill-server || true
+    
     - name: Install Python dependencies
       run: |
         pip install --upgrade pip
