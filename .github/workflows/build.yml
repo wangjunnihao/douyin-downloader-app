@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -18,12 +17,21 @@ jobs:
       with:
         python-version: '3.11'
     
-    - name: Install dependencies
+    - name: Install system dependencies
       run: |
-        pip install buildozer kivy
+        sudo apt-get update
+        sudo apt-get install -y openjdk-17-jdk unzip
     
-    - name: Install Android SDK
+    - name: Set up Android SDK
       uses: android-actions/setup-android@v2
+    
+    - name: Install Python dependencies
+      run: |
+        pip install buildozer==1.5.0 kivy==2.3.0
+    
+    - name: Initialize Buildozer
+      run: |
+        buildozer init
     
     - name: Build APK (Debug)
       run: |
@@ -31,6 +39,8 @@ jobs:
       env:
         ANDROID_HOME: ${{ env.ANDROID_HOME }}
         ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
+        JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+      timeout-minutes: 30
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
