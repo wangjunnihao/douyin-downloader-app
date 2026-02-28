@@ -32,10 +32,6 @@ jobs:
         pip install buildozer==1.5.0
         pip install kivy==2.3.0
     
-    - name: Initialize Buildozer
-      run: |
-        buildozer init
-    
     - name: Build APK (Debug)
       run: |
         buildozer android debug
