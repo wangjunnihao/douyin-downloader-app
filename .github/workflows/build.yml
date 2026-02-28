@@ -27,7 +27,10 @@ jobs:
     
     - name: Install Python dependencies
       run: |
-        pip install buildozer==1.5.0 kivy==2.3.0
+        pip install --upgrade pip
+        pip install cython==3.0.11
+        pip install buildozer==1.5.0
+        pip install kivy==2.3.0
     
     - name: Initialize Buildozer
       run: |
